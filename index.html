@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ravan Mehdiyev · iOS Portfolio</title>
+<meta name="description" content="iOS apps by Ravan Mehdiyev — Scrollary and MedCall.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8fafc; --surface: #ffffff; --text: #0f172a; --muted: #64748b; --border: #e2e8f0;
+    --scrollary: #facc15; --medcall: #22d3ee; --shadow: 0 1px 2px rgba(15,23,42,.05), 0 10px 30px rgba(15,23,42,.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0b1120; --surface: #111827; --text: #f1f5f9; --muted: #94a3b8; --border: #1f2937; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.4); }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, -apple-system, Segoe UI, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+
+  nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 58px; gap: 16px; }
+  nav b { font-weight: 800; letter-spacing: -.01em; }
+  nav .links { display: flex; gap: 18px; font-size: 14px; font-weight: 500; }
+  nav .links a { text-decoration: none; color: var(--muted); }
+  nav .links a:hover { color: var(--text); }
+
+  header { background: linear-gradient(135deg, #0f172a, #1e293b); color: #f8fafc; position: relative; overflow: hidden; }
+  header::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 40px 40px; }
+  header::after { content: ""; position: absolute; width: 560px; height: 560px; right: -180px; top: -240px; border-radius: 50%; background: radial-gradient(circle, rgba(250,204,21,.2), transparent 65%); }
+  .hero { position: relative; z-index: 1; padding: 80px 0 64px; }
+  .eyebrow { font-size: 13px; letter-spacing: .22em; font-weight: 600; color: #94a3b8; text-transform: uppercase; }
+  h1 { font-size: clamp(38px, 6.5vw, 64px); margin: 12px 0 10px; font-weight: 800; letter-spacing: -.02em; }
+  .bar { width: 110px; height: 5px; border-radius: 3px; background: linear-gradient(90deg, var(--scrollary), var(--medcall)); margin-bottom: 18px; }
+  .lead { color: #cbd5e1; font-size: 18px; max-width: 640px; line-height: 1.6; margin: 0; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 12px; font-weight: 600; font-size: 15px; text-decoration: none; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06); color: #f8fafc; }
+  .btn.primary { background: #f8fafc; color: #0f172a; border-color: #f8fafc; }
+
+  section.app { padding: 80px 0 24px; }
+  .app-head { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: center; }
+  .icon { width: 72px; height: 72px; border-radius: 18px; display: grid; place-items: center; font-size: 34px; font-weight: 800; box-shadow: var(--shadow); }
+  .app h2 { margin: 0; font-size: clamp(30px, 4vw, 40px); letter-spacing: -.02em; }
+  .tagline { margin: 4px 0 0; color: var(--muted); font-size: 18px; }
+  .desc { font-size: 17px; line-height: 1.7; max-width: 760px; margin: 26px 0 0; }
+
+  .shots { display: flex; gap: 18px; overflow-x: auto; padding: 32px 4px 26px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+  .shot { flex: 0 0 220px; scroll-snap-align: start; margin: 0; }
+  .shot img { width: 100%; aspect-ratio: 9 / 19.5; object-fit: cover; object-position: top; border-radius: 26px; border: 6px solid #0f172a; box-shadow: var(--shadow); background: #0f172a; display: block; cursor: zoom-in; }
+  .shot figcaption { text-align: center; font-size: 13px; font-weight: 600; color: var(--muted); margin-top: 10px; }
+
+  .features { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .feature { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; box-shadow: var(--shadow); }
+  .feature .em { font-size: 22px; }
+  .feature h3 { margin: 10px 0 6px; font-size: 16px; }
+  .feature p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.6; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .tag { font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); }
+  .tag.s { border-color: color-mix(in srgb, var(--scrollary) 60%, var(--border)); }
+  .tag.m { border-color: color-mix(in srgb, var(--medcall) 60%, var(--border)); }
+  .divider { height: 1px; background: var(--border); margin-top: 64px; }
+
+  .stack { padding: 80px 0; }
+  .stack h2 { font-size: 32px; margin: 0 0 24px; letter-spacing: -.02em; }
+  .stack-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .stack-grid div { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px; }
+  .stack-grid b { display: block; margin-bottom: 6px; }
+  .stack-grid span { color: var(--muted); font-size: 14.5px; line-height: 1.6; }
+
+  dialog { border: 0; padding: 0; background: transparent; }
+  dialog::backdrop { background: rgba(2,6,23,.85); backdrop-filter: blur(4px); }
+  dialog img { max-height: 88vh; max-width: 92vw; border-radius: 22px; display: block; }
+  footer { border-top: 1px solid var(--border); padding: 28px 0 40px; color: var(--muted); font-size: 14px; text-align: center; }
+  @media (max-width: 560px) { nav .links { display: none; } .hero { padding: 56px 0 44px; } .shot { flex-basis: 170px; } .icon { width: 60px; height: 60px; font-size: 28px; } }
+</style>
+</head>
+<body>
+<nav><div class="wrap"><b>Ravan Mehdiyev</b><div class="links"><a href="#scrollary">Scrollary</a><a href="#medcall">MedCall</a><a href="#stack">Tech stack</a><a href="https://iosravandev.github.io/certificates/">Certificates</a></div></div></nav>
+
+<header>
+  <div class="wrap hero">
+    <div class="eyebrow">iOS Developer · Portfolio</div>
+    <h1>Ravan Mehdiyev</h1>
+    <div class="bar"></div>
+    <p class="lead">I build native iOS apps with Swift and SwiftUI, going deep into Apple's system frameworks: Screen Time, AlarmKit, Live Activities and widgets.</p>
+    <div class="cta">
+      <a class="btn primary" href="#scrollary">View projects ↓</a>
+      <a class="btn" href="https://github.com/iosravandev">GitHub</a>
+      <a class="btn" href="https://iosravandev.github.io/certificates/">Certificates</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="app" id="scrollary">
+    <div class="app-head">
+      <div class="icon" style="background:var(--scrollary);color:#111827">S</div>
+      <div><h2>Scrollary</h2><p class="tagline">Earn your screen time by learning vocabulary.</p></div>
+    </div>
+    <p class="desc">Scrollary blocks the apps you choose, such as Instagram or TikTok, using Apple's Screen Time. To unlock them, you scroll a TikTok-style feed of vocabulary cards. Each correct answer earns minutes of screen time. Words you miss go into My Words, where a Recovery Quiz pays double.</p>
+    <div class="shots" data-app="scrollary"></div>
+    <div class="features">
+      <div class="feature"><div class="em">🛡</div><h3>Screen Time integration</h3><p>Blocks the chosen apps with FamilyControls, ManagedSettings and DeviceActivity, with custom Shield UI and Shield Action extensions.</p></div>
+      <div class="feature"><div class="em">🃏</div><h3>Endless learning feed</h3><p>Swipeable word cards with meaning-match and fill-in-the-blank quizzes, audio and example sentences.</p></div>
+      <div class="feature"><div class="em">⏱</div><h3>Time economy</h3><p>Correct answers bank minutes. Boost and Recovery Quizzes (2× rewards) make reviewing worthwhile.</p></div>
+      <div class="feature"><div class="em">🔄</div><h3>Offline-first sync</h3><p>The word catalogue is cached with SwiftData and kept current by delta sync against a NestJS REST API.</p></div>
+      <div class="feature"><div class="em">📊</div><h3>Progress & stats</h3><p>Words learned, points, daily goals and milestones, all calculated on the device.</p></div>
+      <div class="feature"><div class="em">💳</div><h3>Subscriptions</h3><p>Monthly and yearly plans with a free trial through RevenueCat. No account or login needed.</p></div>
+    </div>
+    <div class="tags"><span class="tag s">SwiftUI</span><span class="tag s">SwiftData</span><span class="tag s">Observation</span><span class="tag s">FamilyControls</span><span class="tag s">ManagedSettings</span><span class="tag s">DeviceActivity</span><span class="tag s">RevenueCat</span><span class="tag s">REST API</span></div>
+    <div class="divider"></div>
+  </section>
+
+  <section class="app" id="medcall">
+    <div class="app-head">
+      <div class="icon" style="background:var(--medcall);color:#0f172a">M</div>
+      <div><h2>MedCall</h2><p class="tagline">Your medication calls you, so you never miss a dose.</p></div>
+    </div>
+    <p class="desc">Most pill reminders are notifications that get swiped away. MedCall rings like an incoming phone call: a full-screen alarm that sounds even in Silent mode, where you swipe to confirm you took the dose. Live Activities and widgets show your next dose at a glance.</p>
+    <div class="shots" data-app="medcall"></div>
+    <div class="features">
+      <div class="feature"><div class="em">📞</div><h3>Call-style alarms</h3><p>Full-screen, ringing reminders built on AlarmKit, with Take, Reject and Snooze actions.</p></div>
+      <div class="feature"><div class="em">🏝</div><h3>Live Activities</h3><p>A live countdown to the next dose on the Lock Screen and in the Dynamic Island.</p></div>
+      <div class="feature"><div class="em">🧩</div><h3>Widgets & controls</h3><p>Next-dose and daily-progress widgets, with interactive actions through App Intents.</p></div>
+      <div class="feature"><div class="em">🗓</div><h3>Flexible schedules</h3><p>Several doses per day, chosen weekdays, dosage amounts, notes, and pausing/resuming medicines.</p></div>
+      <div class="feature"><div class="em">🔥</div><h3>History & streaks</h3><p>A per-medicine log of taken and missed doses, with streak tracking.</p></div>
+      <div class="feature"><div class="em">🏗</div><h3>Clean architecture</h3><p>MVVM with use cases, repositories and a dependency container on top of Core Data.</p></div>
+    </div>
+    <div class="tags"><span class="tag m">SwiftUI</span><span class="tag m">AlarmKit</span><span class="tag m">ActivityKit</span><span class="tag m">WidgetKit</span><span class="tag m">App Intents</span><span class="tag m">Core Data</span><span class="tag m">StoreKit</span><span class="tag m">Combine</span></div>
+    <div class="divider"></div>
+  </section>
+
+  <section class="stack" id="stack">
+    <h2>Tech stack</h2>
+    <div class="stack-grid">
+      <div><b>Language & UI</b><span>Swift, SwiftUI, UIKit, Observation, Combine</span></div>
+      <div><b>Persistence</b><span>SwiftData, Core Data, Keychain, App Groups</span></div>
+      <div><b>System integration</b><span>Screen Time, AlarmKit, ActivityKit, WidgetKit, App Intents, UserNotifications</span></div>
+      <div><b>Monetization</b><span>StoreKit, RevenueCat</span></div>
+      <div><b>Architecture</b><span>MVVM, Clean Architecture, dependency injection, offline-first sync</span></div>
+      <div><b>Tooling</b><span>Xcode, Git, XCTest / XCUITest, Claude Code</span></div>
+    </div>
+  </section>
+</main>
+
+<dialog id="viewer"><img alt=""></dialog>
+<footer class="wrap">© 2026 Ravan Mehdiyev · <a href="https://github.com/iosravandev">github.com/iosravandev</a></footer>
+
+<script>
+const SHOTS = {
+  scrollary: [["feed", "Word feed"], ["how-it-works", "How it works"], ["stats", "Stats"], ["my-words", "My Words"], ["plans", "Plans"]],
+  medcall: [["onboarding", "Onboarding"], ["home", "Today"], ["incoming-call", "Incoming call"], ["medicines", "Medicines"], ["details", "Details"]],
+};
+const viewer = document.getElementById("viewer");
+document.querySelectorAll(".shots").forEach(el => {
+  const app = el.dataset.app;
+  el.innerHTML = SHOTS[app].map(([file, label]) =>
+    `<figure class="shot"><img src="assets/${app}/${file}.jpg" alt="${label} screen" loading="lazy"><figcaption>${label}</figcaption></figure>`).join("");
+});
+document.addEventListener("click", e => {
+  const img = e.target.closest(".shot img");
+  if (img) { viewer.querySelector("img").src = img.src; viewer.showModal(); }
+  else if (e.target === viewer || e.target.closest("dialog")) viewer.close();
+});
+</script>
+</body>
+</html>
